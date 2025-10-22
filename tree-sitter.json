@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "topineur",
+      "camelcase": "Topineur",
+      "title": "Topineur",
+      "scope": "source.topineur",
+      "file-types": [
+        "topineur"
+      ],
+      "injection-regex": "^topineur$",
+      "class-name": "TreeSitterTopineur"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Topineur grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Laurent Gonzalez",
+        "email": "laurent.gonzalez@epitech.eu"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/lg-epitech/tree-sitter-topineur"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
