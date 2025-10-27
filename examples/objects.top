@@ -3,7 +3,7 @@ object type Point {
   y: Float
 
   def translate(dx: Float, dy: Float): Point {
-    top Point { self.x = self.x + dx, self.y = self.y + dy }
+    top Point { x = self.x + dx, y = self.y + dy }
   }
 }
 
@@ -16,7 +16,7 @@ object type Polygon {
         (accX + point.x, accY + point.y))
 
     let count = float(length(vertices))
-    top Point { self.x = sumX / count, self.y = sumY / count }
+    top Point { x = sumX / count, y = sumY / count }
   }
 }
 

@@ -4,11 +4,18 @@ package main
 
 @cache
 def fib(n: Int): Int {
-  if n <= 1 then top n
-  else top fib(n - 1) + fib(n - 2)
+    if n <= 1 then
+        top n
+    else top fib(n - 1) + fib(n - 2)
 }
 
 def main(): Int {
-  println("fib(10) = " ++ show(fib(10)))
-  top 42
+    let f = fib(10)
+    println("fib(10) = " ++ show(f))
+
+    for i in 0..f do
+        println(show(i))
+    end
+
+    top 42
 }
