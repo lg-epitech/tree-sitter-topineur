@@ -111,12 +111,8 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "FIELD",
-                        "name": "params",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "parameter_list"
-                        }
+                        "type": "SYMBOL",
+                        "name": "_argument_sequence"
                       },
                       {
                         "type": "BLANK"

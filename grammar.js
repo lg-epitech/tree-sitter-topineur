@@ -32,7 +32,7 @@ module.exports = grammar({
 
     function_definition: ($) =>
       seq(
-        optional(repeat(seq("@", field("decorator", $.identifier), optional(field("params", $.parameter_list))))),
+        optional(repeat(seq("@", field("decorator", $.identifier), optional($._argument_sequence)))),
         "def",
         field("name", $.identifier),
         field("params", $.parameter_list),
