@@ -147,8 +147,8 @@ module.exports = grammar({
           "if",
           field("condition", $._expression),
           "then",
-          field("then_branch", $._statement),
-          optional(seq("else", field("else_branch", $._statement))),
+          field("then_branch", repeat($._statement)),
+          seq("else", field("else_branch", repeat($._statement))),
         ),
       ),
 

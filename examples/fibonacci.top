@@ -4,8 +4,7 @@ package main
 
 @cache
 def fib(n: Int): Int {
-    if n <= 1 then
-        top n
+    if n <= 1 then top n
     else top fib(n - 1) + fib(n - 2)
 }
 

@@ -1075,7 +1075,7 @@
         ]
       },
       "else_branch": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -1165,8 +1165,8 @@
         ]
       },
       "then_branch": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
           {
             "type": "anonymous_function",
