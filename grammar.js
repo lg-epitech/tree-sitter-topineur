@@ -24,6 +24,7 @@ module.exports = grammar({
         $.function_definition,
         $.object_type_declaration,
         $.let_binding,
+        $.variable_assignment,
       ),
 
     package_decl: ($) => seq("package", field("name", $.identifier)),
@@ -75,13 +76,23 @@ module.exports = grammar({
         field("value", $._expression),
       ),
 
-    tuple_pattern: ($) =>
+    variable_assignment: ($) =>
       seq(
-        "(",
-        $.identifier,
-        ",",
-        seq($.identifier, repeat(seq(",", $.identifier))),
-        ")",
+        field("name", choice($.identifier, $.tuple_pattern)),
+        "=",
+        field("value", $._expression),
+      ),
+
+    tuple_pattern: ($) =>
+      prec.right(
+        10,
+        seq(
+          "(",
+          $.identifier,
+          ",",
+          seq($.identifier, repeat(seq(",", $.identifier))),
+          ")",
+        ),
       ),
 
     parameter_list: ($) => seq("(", optional($._parameter_sequence), ")"),
@@ -103,6 +114,7 @@ module.exports = grammar({
         $.for_expression,
         $.while_expression,
         $.let_binding,
+        $.variable_assignment,
         $._expression,
       ),
 
@@ -285,6 +297,7 @@ module.exports = grammar({
 
     binary_expression: ($) =>
       prec.left(
+        1,
         seq(
           field("left", $._expression),
           field("operator", $.operators),

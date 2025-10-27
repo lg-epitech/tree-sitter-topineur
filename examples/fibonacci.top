@@ -13,6 +13,10 @@ def main(): Int {
     let f = fib(10)
     println("fib(10) = " ++ show(f))
 
+    while f < 100 do
+        f = f + 1
+    end
+
     for i in 0..f do
         println(show(i))
     end
