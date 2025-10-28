@@ -514,6 +514,22 @@
     }
   },
   {
+    "type": "dotted_identifier",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "field_assignment",
     "named": true,
     "fields": {
@@ -1265,7 +1281,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "dotted_identifier",
             "named": true
           }
         ]
@@ -1795,7 +1811,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "dotted_identifier",
             "named": true
           }
         ]

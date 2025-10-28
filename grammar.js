@@ -27,9 +27,9 @@ module.exports = grammar({
         $.variable_assignment,
       ),
 
-    package_decl: ($) => seq("package", field("name", $.identifier)),
+    package_decl: ($) => seq("package", field("name", $.dotted_identifier)),
 
-    import_decl: ($) => seq("import", field("name", $.identifier)),
+    import_decl: ($) => seq("import", field("name", $.dotted_identifier)),
 
     function_definition: ($) =>
       seq(
@@ -321,6 +321,12 @@ module.exports = grammar({
     _type_spec: ($) => choice($.generic_type, $.type_identifier, $.identifier),
 
     identifier: () => /[a-zA-Z_]\w*/,
+
+    dotted_identifier: ($) =>
+      seq(
+        field("path", $.identifier),
+        repeat(seq(".", field("path", $.identifier))),
+      ),
 
     type_identifier: () => /[A-Z]\w*/,
 

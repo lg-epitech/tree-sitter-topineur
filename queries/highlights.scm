@@ -111,12 +111,29 @@
 ;; ------------------------------
 ;; Declarations
 ;; ------------------------------
-(package_decl name: (identifier) @namespace)
-(import_decl name: (identifier) @namespace)
+(package_decl name: (dotted_identifier path: (identifier) @namespace))
+(import_decl name: (dotted_identifier path: (identifier) @namespace))
 
 ;; ------------------------------
 ;; Type identifiers and their contents
 ;; ------------------------------
+;; Builtin types (must come before general type rule)
+((type_identifier) @type.builtin
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+
+;; Builtin types in generic types
+((generic_type name: (identifier) @type.builtin)
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+
+;; Builtin types in type annotations
+((type (type_identifier) @type.builtin)
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+
+;; Builtin types as identifiers in type contexts
+((type (identifier) @type.builtin)
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+
+;; General type identifiers
 (type_identifier) @type
 
 ;; Generic types - highlight name and type parameters
@@ -136,3 +153,4 @@
 (float_number) @number
 (tuple_expression) @constructor
 (array_expression) @constructor
+
