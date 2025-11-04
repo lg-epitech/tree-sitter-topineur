@@ -10,6 +10,8 @@
 module.exports = grammar({
   name: "topineur",
 
+  word: ($) => $.identifier,
+
   extras: ($) => [/\s/, $.comment],
 
   rules: {
@@ -157,6 +159,7 @@ module.exports = grammar({
         2,
         choice(
           $.let_expression,
+          $.unary_expression,
           $.binary_expression,
           $._call_or_member_expression,
         ),
@@ -185,6 +188,7 @@ module.exports = grammar({
 
     _primary_expression: ($) =>
       choice(
+        prec.dynamic(10, $.boolean),
         $.identifier,
         $.self_reference,
         $.number,
@@ -293,7 +297,16 @@ module.exports = grammar({
     expression: ($) => choice($.binary_expression, $._primary_expression),
 
     operators: () =>
-      choice("+", "-", "*", "/", "<=", ">=", "<", ">", "%", "==", "++"),
+      choice("+", "-", "*", "/", "<=", ">=", "<", ">", "%", "==", "++", "and", "or"),
+
+    unary_expression: ($) =>
+      prec.left(
+        4,
+        seq(
+          field("operator", "not"),
+          field("operand", $._expression),
+        ),
+      ),
 
     binary_expression: ($) =>
       prec.left(
@@ -333,6 +346,11 @@ module.exports = grammar({
     number: () => /\d+/,
 
     float_number: () => /\d+\.\d+/,
+
+    boolean: () => choice(
+      token("true"),
+      token("false"),
+    ),
 
     string: () => seq('"', /[^"]*/, '"'),
   },

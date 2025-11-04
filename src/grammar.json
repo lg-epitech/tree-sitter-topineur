@@ -1,6 +1,7 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "topineur",
+  "word": "identifier",
   "rules": {
     "source_file": {
       "type": "REPEAT",
@@ -751,6 +752,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "unary_expression"
+          },
+          {
+            "type": "SYMBOL",
             "name": "binary_expression"
           },
           {
@@ -829,6 +834,14 @@
     "_primary_expression": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "PREC_DYNAMIC",
+          "value": 10,
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        },
         {
           "type": "SYMBOL",
           "name": "identifier"
@@ -1379,8 +1392,41 @@
         {
           "type": "STRING",
           "value": "++"
+        },
+        {
+          "type": "STRING",
+          "value": "and"
+        },
+        {
+          "type": "STRING",
+          "value": "or"
         }
       ]
+    },
+    "unary_expression": {
+      "type": "PREC_LEFT",
+      "value": 4,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": "not"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operand",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
     },
     "binary_expression": {
       "type": "PREC_LEFT",
@@ -1551,6 +1597,25 @@
     "float_number": {
       "type": "PATTERN",
       "value": "\\d+\\.\\d+"
+    },
+    "boolean": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "true"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "false"
+          }
+        }
+      ]
     },
     "string": {
       "type": "SEQ",

@@ -22,7 +22,9 @@
   "for"
   "do"
   "end"
-  "in"
+  "and"
+  "or"
+  "not"
 ] @keyword
 
 ;; Operators
@@ -119,19 +121,19 @@
 ;; ------------------------------
 ;; Builtin types (must come before general type rule)
 ((type_identifier) @type.builtin
-  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple|Bool)$"))
 
 ;; Builtin types in generic types
 ((generic_type name: (identifier) @type.builtin)
-  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple|Bool)$"))
 
 ;; Builtin types in type annotations
 ((type (type_identifier) @type.builtin)
-  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple|Bool)$"))
 
 ;; Builtin types as identifiers in type contexts
 ((type (identifier) @type.builtin)
-  (#match? @type.builtin "^(Int|String|List|Float|Tuple)$"))
+  (#match? @type.builtin "^(Int|String|List|Float|Tuple|Bool)$"))
 
 ;; General type identifiers
 (type_identifier) @type
@@ -151,6 +153,6 @@
 (string) @string
 (number) @number
 (float_number) @number
+(boolean) @boolean
 (tuple_expression) @constructor
 (array_expression) @constructor
-
